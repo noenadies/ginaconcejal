@@ -1,37 +1,60 @@
-
+var  todolodeusernfire;
 var nodetodoadmin;
 var todolodeadminfire;
 var vinpnombre;
 var  vpass;
 function inicia(){
      // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDhOtf_ssOp3KEOiu3nByOWcqJxXZEzVaA",
-    authDomain: "concejalaginna.firebaseapp.com",
-    databaseURL: "https://concejalaginna.firebaseio.com",
-    projectId: "concejalaginna",
-    storageBucket: "concejalaginna.appspot.com",
-    messagingSenderId: "167282227815"
-  };
-  firebase.initializeApp(config);
+     var config = {
+      apiKey: "AIzaSyDhOtf_ssOp3KEOiu3nByOWcqJxXZEzVaA",
+      authDomain: "concejalaginna.firebaseapp.com",
+      databaseURL: "https://concejalaginna.firebaseio.com",
+      projectId: "concejalaginna",
+      storageBucket: "concejalaginna.appspot.com",
+      messagingSenderId: "167282227815"
+    };
+    firebase.initializeApp(config);
 
 }
 
 
-function segundoinicio() {
-    
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Initialize Firebase
   inicia();
 
   funatraefireadmi();
 function funatraefireadmi(){
-    firebase.database().ref().child(String("admin")).on("value", function(snapshot) {
+    firebase.database().ref().child("admin").once("value", function(snapshot) {
   
         todolodeadminfire=snapshot.val();
-        segundoinicio();
+    
 
+
+        firebase.database().ref().child("user").once("value", function(snapshot) {
+  
+          todolodeusernfire=snapshot.val();
+      
+
+          
+  
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+
+        
+        
 
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -39,20 +62,40 @@ function funatraefireadmi(){
   }
 
 
+
+
+
+  var  soyadminabjto={objfire:0,estoylogeado:false};
+  var  soyuserobj={objfire:0,estoylogeado:false};;
+
 function fbtlogin(){
 
  vinpnombre=getv("idinpnombre");
- vpass=String(getv("inppass"));
-console.log(vpass+"  aca");
-console.log(todolodeadminfire);
+ vpass=getv("inppass");
+//console.log(vpass+"  aca");
+//console.log(todolodeadminfire);
     for(var i in todolodeadminfire){
 if(todolodeadminfire.nombre==vinpnombre&&todolodeadminfire.clave==vpass){
 window.location="index2.html";
 
-
+soyadminabjto.estoylogeado=true;
 }
 
     }
+
+
+          
+    for(var i in todolodeusernfire){
+      if(todolodeusernfire[i].user==vinpnombre&&todolodeusernfire[i].clave==vpass){
+      window.location="index2.html";
+   
+      soyuserobj.estoylogeado=true;
+      }
+      
+          }
+      
+      
+
 
    
 }
