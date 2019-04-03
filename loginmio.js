@@ -46,20 +46,69 @@ function funatraefireadmi(){
   
           todolodeusernfire=snapshot.val();
       
-
+      //    console.log("todolodeadminfire");
+      //    console.log(todolodeadminfire);
           
   
       }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+      //  console.log("The read failed: " + errorObject.code);
       });
 
         
         
 
     }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
+    //  console.log("The read failed: " + errorObject.code);
     });
   }
+
+  funatraefireadmion();
+
+  function funatraefireadmion(){
+    firebase.database().ref().child("admin").on("value", function(snapshot) {
+  
+        todolodeadminfire=snapshot.val();
+      
+      }, function (errorObject) {
+//console.log("The read failed: " + errorObject.code);
+    });
+  }
+
+
+  firebase.database().ref().child("user").on("child_added", function(snapshot) {
+  
+    firebase.database().ref().child("admin").once("value", function(snapshot) {
+  
+      todolodeadminfire=snapshot.val();
+  
+
+
+      firebase.database().ref().child("user").once("value", function(snapshot) {
+
+        todolodeusernfire=snapshot.val();
+    
+     //   console.log("todolodeadminfire");
+      //  console.log(todolodeadminfire);
+        
+
+    }, function (errorObject) {
+    //  console.log("The read failed: " + errorObject.code);
+    });
+
+      
+      
+
+  }, function (errorObject) {
+  //  console.log("The read failed: " + errorObject.code);
+  });
+
+
+firebase.database().ref().child("user").child(snapshot.key).child("idfire").set(snapshot.key);
+    
+
+}, function (errorObject) {
+ // console.log("The read failed: " + errorObject.code);
+});
 
 
 
@@ -86,7 +135,7 @@ soyadminabjto.estoylogeado=true;
 
           
     for(var i in todolodeusernfire){
-      if(todolodeusernfire[i].user==vinpnombre&&todolodeusernfire[i].clave==vpass){
+      if(todolodeusernfire[i].user==vinpnombre&&todolodeusernfire[i].pass==vpass){
       window.location="index2.html";
    
       soyuserobj.estoylogeado=true;
