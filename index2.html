@@ -1498,6 +1498,46 @@ border-radius: 40px 40px 40px 40px;
 
 
 
+<!--inicio canales-->
+
+
+
+
+<style>
+
+#idpanelcanales{
+
+  position: absolute;
+  top: 80%;
+  left: 90%;
+  width: 8%;
+  height: 20%;
+background-color: #000000;
+z-index: 14;
+}
+.clbtcanelses{
+
+position: relative;
+padding: 2px;
+margin: auto;
+
+
+width: 30px;
+height: 20px;
+background-color: #c20b0b;
+}
+</style>
+  
+  
+  
+  
+  
+
+<!--fin canales-->
+
+
+
+
 
 
 
@@ -1526,6 +1566,167 @@ border-radius: 40px 40px 40px 40px;
 
 </head>
 <body>
+
+
+
+
+
+<!--inicio canales-->
+
+
+
+<div id="idpanelcanales">
+
+
+  <table style="width: 100%" border="1">
+    <tbody>
+      <tr>
+        <td><button onclick="fbtcanalesc1();" class="clbtcanelses">c1</button>
+        </td>
+        <td><button onclick="fbtcanalesc1();" class="clbtcanelses">c2</button>
+        </td>
+        <td><button onclick="fbtcanalesc1();" class="clbtcanelses">c3</button>
+        </td>
+      </tr>
+      <tr>
+        <td><br>
+        </td>
+        <td><br>
+        </td>
+        <td><button onclick="traeunavescanaklesifre();" class="clbtcanelses">ok</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
+<script>
+
+
+var bollcanalesc1=false;
+var bollcanalesc2=false;
+var bollcanalesc3=false;
+var  elcanaladefire="";
+var soyelcanal="";
+
+
+function fbtcanalesc1(){
+  bollcanalesc1=true;
+  if(bollcanalesc1){
+  
+  bollcanalesc1=true;
+ bollcanalesc2=false;
+ bollcanalesc3=false;
+
+ soyelcanal="c1";
+
+ traedefireelcanal();
+
+}
+
+
+
+
+}
+
+
+function fbtcanalesc2(){
+  bollcanalesc2=true;
+  if(bollcanalesc2){
+  
+    bollcanalesc1=false;
+   bollcanalesc2=true;
+   bollcanalesc3=false;
+   soyelcanal="c2";
+   traedefireelcanal();
+  }
+
+}
+
+function fbtcanalesc2(){
+  bollcanalesc3=true;
+  if(bollcanalesc3){
+  
+    bollcanalesc1=false;
+   bollcanalesc2=false;
+   bollcanalesc3=true;
+   soyelcanal="c3";
+   traedefireelcanal();
+  }
+
+}
+
+
+
+
+
+var arraycanalestesoy=[];
+function traedefireelcanal(){
+
+  firebase.database().ref().child("canales").child(soyelcanal).child("on").on("value", function(snapshot) {
+  //  vunallamdaalnodovo=[];
+
+  traeunavescanaklesifre();
+
+
+}, function (errorObject) {
+ // console.log("The read failed: " + errorObject.code);
+});
+}
+
+
+function traeunavescanaklesifre(){
+
+
+
+	
+
+	
+  firebase.database().ref().child("canales").child(soyelcanal).once("value", function(snapshot) {
+
+    arraycanalestesoy=snapshot.val();
+    console.log(arraycanalestesoy);
+
+
+document.getElementById("idedtced").value=arraycanalestesoy.fcedula;
+document.getElementById("idedtdep").value=arraycanalestesoy.fdep;
+document.getElementById("idedtmun").value=arraycanalestesoy.fmuni;
+document.getElementById("idedtpt").value=arraycanalestesoy.fpuesto;
+document.getElementById("idedtdr").value=arraycanalestesoy.fdir;
+document.getElementById("idedtmesa").value=arraycanalestesoy.fmesa;
+document.getElementById("idedtfch").value=arraycanalestesoy.ffecha;
+document.getElementById("idedtfch").value=arraycanalestesoy.ffecha;
+
+    }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<!--fin canales-->
+
+
+
+
 
 
 
